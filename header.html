@@ -1,0 +1,74 @@
+<header class="bg-green-700 text-white">
+  <div class="container mx-auto flex items-center justify-between py-4 px-6">
+      <div class="flex items-center">
+          <img alt="Bananalyze logo" class="h-24 w-24 rounded-full border-2 border-white-500 shadow-lg" height="96" src="./img/logo.png" width="96" />
+          <span class="text-white text-2xl font-bold ml-2">Bananalyze</span>
+      </div>
+
+      <nav class="navbar flex justify-end space-x-8 p-6 text-white" style="position: absolute; top: 20px; right: 20px;">
+          <a class="text-2xl font-bold hover:border-yellow-500" href="index.html">Home</a>
+          <a class="text-2xl font-bold hover:border-yellow-500" href="services.html">Services</a>
+
+          <!-- Scan Dropdown -->
+          <div class="relative">
+              <button id="scanDropdown" class="text-2xl font-bold hover:border-yellow-500 flex items-center" onclick="toggleDropdown('scanDropdownMenu')">
+                  Scan <span class="ml-2">&#9662;</span>
+              </button>
+              <div id="scanDropdownMenu" class="dropdown-menu absolute right-0 bg-yellow-500 text-black mt-2 rounded shadow-lg hidden">
+                  <a class="block px-4 py-2 hover:bg-yellow-400" href="detect.disease.html">Detect Disease</a>
+                  <a class="block px-4 py-2 hover:bg-yellow-400" href="identify.variety.html">Identify Variety</a>
+                  <a class="block px-4 py-2 hover:bg-yellow-400" href="pest.detection.html">Pest Detection</a>
+              </div>
+          </div>
+
+          <!-- About Dropdown -->
+          <div class="relative">
+              <button id="aboutDropdown" class="text-2xl font-bold hover:border-yellow-500 flex items-center" onclick="toggleDropdown('aboutDropdownMenu')">
+                  About <span class="ml-2">&#9662;</span>
+              </button>
+              <div id="aboutDropdownMenu" class="dropdown-menu absolute right-0 bg-yellow-500 text-black mt-2 rounded shadow-lg hidden">
+                  <a class="block px-4 py-2 hover:bg-yellow-400" href="about.html">General About</a>
+                  <a class="block px-4 py-2 hover:bg-yellow-400" href="about.team.html">About the Team</a>
+              </div>
+          </div>
+      </nav>
+  </div>
+</header>
+
+<script>
+  function toggleDropdown(menuId) {
+      const menu = document.getElementById(menuId);
+      const isVisible = !menu.classList.contains('hidden');
+
+      // Hide all dropdowns
+      const allMenus = document.querySelectorAll('.dropdown-menu');
+      allMenus.forEach(m => m.classList.add('hidden'));
+
+      // Toggle visibility of the clicked menu
+      if (!isVisible) {
+          menu.classList.remove('hidden');
+      }
+  }
+
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', function (event) {
+      const dropdowns = document.querySelectorAll('.dropdown-menu');
+      const clickedInsideDropdown = event.target.closest('.relative');
+
+      if (!clickedInsideDropdown) {
+          dropdowns.forEach(menu => menu.classList.add('hidden'));
+      }
+  });
+</script>
+
+<style>
+  .hidden {
+      display: none;
+  }
+
+  /* Ensure dropdowns are visually appealing */
+  .dropdown-menu a {
+      text-align: left;
+      padding-left: 1.5rem;
+  }
+</style>

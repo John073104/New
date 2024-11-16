@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bananalyze Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Header Section -->
+    <div id="header"></div>
+
+    <script>
+        // Load the header dynamically
+        fetch('header.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Header file not found');
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('header').innerHTML = data;
+
+                // Reinitialize dropdown functionality after header is loaded
+                const script = document.createElement('script');
+                script.innerHTML = `
+                    function toggleDropdown(menuId) {
+                        const menu = document.getElementById(menuId);
+                        const isVisible = !menu.classList.contains('hidden');
+                        const allMenus = document.querySelectorAll('.dropdown-menu');
+                        allMenus.forEach(m => m.classList.add('hidden'));
+                        if (!isVisible) {
+                            menu.classList.remove('hidden');
+                        }
+                    }
+                    document.addEventListener('click', function (event) {
+                        const dropdowns = document.querySelectorAll('.dropdown-menu');
+                        const clickedInsideDropdown = event.target.closest('.relative');
+                        if (!clickedInsideDropdown) {
+                            dropdowns.forEach(menu => menu.classList.add('hidden'));
+                        }
+                    });
+                `;
+                document.body.appendChild(script);
+            })
+            .catch(error => {
+                console.error('Error loading header:', error);
+                document.getElementById('header').innerHTML = '<p class="text-red-500">Failed to load header.</p>';
+            });
+    </script>
+
+    <!-- Services Section -->
+    <main class="text-center py-16">
+        <h1 class="text-4xl font-bold mb-8">SERVICES</h1>
+        <div class="flex justify-center space-x-8 flex-wrap">
+            <!-- Service 1 -->
+            <div class="border-2 border-yellow-400 p-8 w-64 hover:shadow-lg transition-shadow duration-300">
+                <div class="text-orange-500 text-4xl mb-4">
+                    <i class="fas fa-desktop" aria-hidden="true"></i>
+                </div>
+                <p class="mb-4">Bananalyze will analyze banana leaves, fruits, or trunks for diseases or pests.</p>
+                <a class="bg-yellow-400 text-black font-bold py-2 block text-center" href="pest.detection.html">DISEASE AND PEST DETECTION</a>
+            </div>
+            <!-- Service 2 -->
+            <div class="border-2 border-yellow-400 p-8 w-64 hover:shadow-lg transition-shadow duration-300">
+                <div class="text-orange-500 text-4xl mb-4">
+                    <i class="fas fa-info-circle" aria-hidden="true"></i>
+                </div>
+                <p class="mb-4">Based on detected diseases and pests, Bananalyze provides detailed prevention methods for bananas.</p>
+                <a class="bg-yellow-400 text-black font-bold py-2 block text-center" href="predicted.disease.html">PREVENTION</a>
+            </div>
+            <!-- Service 3 -->
+            <div class="border-2 border-yellow-400 p-8 w-64 hover:shadow-lg transition-shadow duration-300">
+                <div class="text-orange-500 text-4xl mb-4">
+                    <i class="fas fa-mobile-alt" aria-hidden="true"></i>
+                </div>
+                <p class="mb-4">Mobile applications enhance the integrated software systems commonly found on Desktop.</p>
+                <a class="bg-yellow-400 text-black font-bold py-2 block text-center" href="identify.variety.html">VARIETY IDENTIFICATION</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

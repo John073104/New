@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Bananalyze</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .navbar a:hover {
+            border-bottom: 2px solid #FFD700;
+        }
+
+        /* Optional: Custom styles */
+        .dropdown-menu {
+            display: none;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="bg-cover bg-center" style="background-image: url('../img/background.jpg');">
+
+    <!-- Navbar -->
+    <nav class="navbar flex justify-end space-x-8 p-6 text-white" style="position: absolute; top: 20px; right: 20px;">
+        <a class="text-2xl font-bold hover:border-yellow-500" href="index.html">Home</a>
+        <a class="text-2xl font-bold hover:border-yellow-500" href="services.html">Services</a>
+
+        <!-- Scan Dropdown -->
+        <div class="relative">
+            <button id="scanDropdown" class="text-2xl font-bold hover:border-yellow-500 flex items-center">
+                Scan <span class="ml-2">&#9662;</span> <!-- Down arrow -->
+            </button>
+            <div id="scanDropdownMenu" class="dropdown-menu absolute right-0 bg-yellow-500 text-black mt-2 rounded shadow-lg">
+                <a class="block px-4 py-2 hover:bg-yellow-400" href="detect.disease.html">Detect Disease</a>
+                <a class="block px-4 py-2 hover:bg-yellow-400" href="identify.variety.html">Identify Variety</a>
+                <a class="block px-4 py-2 hover:bg-yellow-400" href="pest.detection.html">Pest Detection</a>
+            </div>
+        </div>
+
+        <!-- About Dropdown -->
+        <div class="relative">
+            <button id="aboutDropdown" class="text-2xl font-bold hover:border-yellow-500 flex items-center">
+                About <span class="ml-2">&#9662;</span> <!-- Down arrow -->
+            </button>
+            <div id="aboutDropdownMenu" class="dropdown-menu absolute right-0 bg-yellow-500 text-black mt-2 rounded shadow-lg">
+                <a class="block px-4 py-2 hover:bg-yellow-400" href="about.html">General About</a>
+                <a class="block px-4 py-2 hover:bg-yellow-400" href="about.team.html">About the Team</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="flex flex-col items-center justify-center h-screen text-center text-white">
+        <h1 class="text-6xl font-bold mb-4">WELCOME TO</h1>
+        <div class="bg-white rounded-full p-6 mb-4">
+            <img alt="Logo of bananas" class="w-30 h-30" height="200" src="../img/logo.png" width="200" />
+        </div>
+        <h2 class="text-6xl font-bold text-yellow-500">Banana <span class="text-white">lyze</span></h2>
+
+        <!-- SCAN Button -->
+        <div class="flex justify-center mt-20">
+            <button id="scanButton" class="mt-10 bg-yellow-500 text-white font-bold py-4 px-8 rounded-full">SCAN</button>
+        </div>
+    </div>
+
+    <!-- JavaScript for Dropdown Functionality -->
+    <script>
+        // Toggle Dropdown visibility for Scan and About buttons
+        function toggleDropdown(dropdownMenuId) {
+            const dropdownMenu = document.getElementById(dropdownMenuId);
+            dropdownMenu.classList.toggle('show');
+        }
+
+        // Close dropdowns if user clicks outside
+        window.addEventListener('click', function (event) {
+            const scanDropdownMenu = document.getElementById('scanDropdownMenu');
+            const aboutDropdownMenu = document.getElementById('aboutDropdownMenu');
+
+            // Close the Scan dropdown if click is outside
+            if (!event.target.matches('#scanDropdown') && !scanDropdownMenu.contains(event.target)) {
+                scanDropdownMenu.classList.remove('show');
+            }
+
+            // Close the About dropdown if click is outside
+            if (!event.target.matches('#aboutDropdown') && !aboutDropdownMenu.contains(event.target)) {
+                aboutDropdownMenu.classList.remove('show');
+            }
+        });
+
+        // Toggle Scan Dropdown
+        document.getElementById('scanDropdown').addEventListener('click', function (event) {
+            toggleDropdown('scanDropdownMenu');
+            event.stopPropagation(); // Prevent click from propagating to the window
+        });
+
+        // Toggle About Dropdown
+        document.getElementById('aboutDropdown').addEventListener('click', function (event) {
+            toggleDropdown('aboutDropdownMenu');
+            event.stopPropagation(); // Prevent click from propagating to the window
+        });
+
+        // SCAN Button Click Event
+        document.getElementById('scanButton').addEventListener('click', function () {
+            alert('Navigating to Detect Disease page...');
+            setTimeout(function () {
+                window.location.href = 'detect.disease.html'; // Navigate to the page after alert
+            }, 1000); // Delay for 1 second
+        });
+    </script>
+</body>
+
+</html>

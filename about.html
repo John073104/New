@@ -1,0 +1,66 @@
+<Doctype html lang="en">
+    <head>
+     <title>About Team</title>
+     <script src="https://cdn.tailwindcss.com"></script>
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet"/>
+     <style>
+      body {
+               font-family: 'Roboto', sans-serif;
+           }
+     </style>
+    </head>
+    <!-- Header Section -->
+    <div id="header"></div>
+
+    <script>
+        // Load the header dynamically
+        fetch('header.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Header file not found');
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('header').innerHTML = data;
+
+                // Reinitialize dropdown functionality after header is loaded
+                const script = document.createElement('script');
+                script.innerHTML = `
+                    function toggleDropdown(menuId) {
+                        const menu = document.getElementById(menuId);
+                        const isVisible = !menu.classList.contains('hidden');
+                        const allMenus = document.querySelectorAll('.dropdown-menu');
+                        allMenus.forEach(m => m.classList.add('hidden'));
+                        if (!isVisible) {
+                            menu.classList.remove('hidden');
+                        }
+                    }
+                    document.addEventListener('click', function (event) {
+                        const dropdowns = document.querySelectorAll('.dropdown-menu');
+                        const clickedInsideDropdown = event.target.closest('.relative');
+                        if (!clickedInsideDropdown) {
+                            dropdowns.forEach(menu => menu.classList.add('hidden'));
+                        }
+                    });
+                `;
+                document.body.appendChild(script);
+            })
+            .catch(error => {
+                console.error('Error loading header:', error);
+                document.getElementById('header').innerHTML = '<p class="text-red-500">Failed to load header.</p>';
+            });
+    </script>
+  <main class="container mx-auto mt-10 px-6">
+   <h1 class="text-3xl font-bold text-center">
+    ABOUT
+   </h1>
+   <div class="bg-yellow-500 text-black rounded-lg p-6 mt-6 max-w-3xl mx-auto">
+    <p>
+     Bananalyze is a web application that allow users to identify different banana varieties by analyzing their visual characteristics, such as the shape, size, and color of the leaves, fruits, and trunks. Users can upload images, and the system will provide an accurate identification of the banana variety, helping farmers and enthusiasts distinguish between different types of bananas.
+    </p>
+   </div>
+  </main>
+ </body>
+</html>

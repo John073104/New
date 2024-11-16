@@ -1,0 +1,92 @@
+<Doctype html lang="en">
+    <head>
+     <title>Bananalyze Predicted Disease</title>
+     <script src="https://cdn.tailwindcss.com"></script>
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet"/>
+     <style>
+      body {
+               font-family: 'Roboto', sans-serif;
+           }
+     </style>
+    </head>
+    <body class="bg-gray-100">
+     <!-- Header Section -->
+    <div id="header"></div>
+
+    <script>
+        // Load the header dynamically
+        fetch('header.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Header file not found');
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('header').innerHTML = data;
+
+                // Reinitialize dropdown functionality after header is loaded
+                const script = document.createElement('script');
+                script.innerHTML = `
+                    function toggleDropdown(menuId) {
+                        const menu = document.getElementById(menuId);
+                        const isVisible = !menu.classList.contains('hidden');
+                        const allMenus = document.querySelectorAll('.dropdown-menu');
+                        allMenus.forEach(m => m.classList.add('hidden'));
+                        if (!isVisible) {
+                            menu.classList.remove('hidden');
+                        }
+                    }
+                    document.addEventListener('click', function (event) {
+                        const dropdowns = document.querySelectorAll('.dropdown-menu');
+                        const clickedInsideDropdown = event.target.closest('.relative');
+                        if (!clickedInsideDropdown) {
+                            dropdowns.forEach(menu => menu.classList.add('hidden'));
+                        }
+                    });
+                `;
+                document.body.appendChild(script);
+            })
+            .catch(error => {
+                console.error('Error loading header:', error);
+                document.getElementById('header').innerHTML = '<p class="text-red-500">Failed to load header.</p>';
+            });
+    </script>
+  <main class="p-8">
+   <h1 class="text-3xl font-bold text-center">
+    PREDICTED DISEASE
+   </h1>
+   <p class="text-center text-gray-600 mb-8">
+    Based on the uploaded picture
+   </p>
+   <div class="flex justify-center items-start space-x-8">
+    <div class="border border-black w-64 h-64">
+    </div>
+    <div class="space-y-4">
+     <div>
+      <label class="block font-bold mb-2">
+       Disease Name:
+      </label>
+      <div class="bg-green-700 text-white p-4 rounded">
+      </div>
+     </div>
+     <div>
+      <label class="block font-bold mb-2">
+       Disease Description:
+      </label>
+      <div class="bg-green-700 text-white p-4 rounded h-24">
+      </div>
+     </div>
+     <div>
+      <label class="block font-bold mb-2">
+       Recommended Treatment:
+      </label>
+      <div class="bg-green-700 text-white p-4 rounded h-24">
+      </div>
+     </div>
+    </div>
+   </div>
+  </main>
+ </body>
+</html>
